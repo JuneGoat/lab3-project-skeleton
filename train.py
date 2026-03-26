@@ -105,7 +105,13 @@ def main():
     else:
         raise ValueError(f"Unknown MODEL={model_name}")
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
+    
+    # 获取环境变量中的超参数
+    lr = float(os.environ.get("LR", "0.01"))
+    
+    # 推荐使用 Adam 或带有 Momentum 的 SGD
+    # optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     epochs = int(os.environ.get("EPOCHS", "5"))
     max_steps = int(os.environ.get("MAX_STEPS", "0"))
