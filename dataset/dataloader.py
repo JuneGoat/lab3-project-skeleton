@@ -2,7 +2,7 @@ import os
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-def get_dataloaders(data_root='./data/tiny-imagenet-200', batch_size=64):
+def get_dataloaders(data_root='./data/tiny-imagenet-200', batch_size=256): # 增大 batch_size
     """
     构建并返回训练集和评估集的 DataLoader
     """

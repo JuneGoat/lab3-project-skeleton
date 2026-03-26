@@ -107,11 +107,10 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     
     # 获取环境变量中的超参数
-    lr = float(os.environ.get("LR", "0.01"))
+    lr = float(os.environ.get("LR", "1e-3")) # 降低默认学习率到 1e-3
     
-    # 推荐使用 Adam 或带有 Momentum 的 SGD
-    # optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    # TinyImageNet 分类任务推荐使用带 momentum 和 weight_decay 的 SGD
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
 
     epochs = int(os.environ.get("EPOCHS", "5"))
     max_steps = int(os.environ.get("MAX_STEPS", "0"))
