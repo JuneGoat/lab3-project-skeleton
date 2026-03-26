@@ -2,7 +2,9 @@ import torch
 from torch import nn
 
 # 从我们拆分的模块导入
-from models.customnet import CustomCNN
+#from models.customnet import CustomCNN
+from models.alexnet import AlexNet
+from models.resnet import ResNet18
 from dataset.dataloader import get_dataloaders
 from utils.checkpoint import load_checkpoint
 
@@ -32,10 +34,10 @@ def main():
     _, eval_loader = get_dataloaders(batch_size=64)
 
     # 实例化空模型
-    model = CustomCNN().to(device)
-    
+    #model = CustomCNN().to(device)
+    model = AlexNet(num_classes=200).to(device)
     # 使用分离的工具函数加载 Checkpoint
-    checkpoint_path = 'checkpoints/customcnn_final.pth'
+    checkpoint_path = 'checkpoints/customcnn_final_AlexNet.pth'
     load_checkpoint(checkpoint_path, model, device=device)
 
     loss_fn = nn.CrossEntropyLoss()
